@@ -70,6 +70,8 @@ testem.log
 typings/
 .angular/
 
+directrices.txt
+
 # e2e
 e2e/*.js
 e2e/*.map
