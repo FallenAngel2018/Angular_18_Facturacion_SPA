@@ -1,3 +1,46 @@
-<p>
-  Login works!
-</p>
+
+<div class="parent">
+
+  <div class="navbar-container">
+      <app-NavBar></app-NavBar>
+  </div>
+
+  <div class="main-container">
+    <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0">
+      <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Log In</h2>
+      <form [formGroup]="loginForm">
+        <div class="relative mb-4">
+          <label for="full-name" class="leading-7 text-sm text-gray-600">Usuario</label>
+          <input type="text" id="full-name" formControlName="username"
+            class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+          <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
+            *ngIf="userNameFormControl.invalid && (isFormSubmitted || userNameFormControl.touched || userNameFormControl.dirty)">
+            <span class="block sm:inline" *ngIf="userNameFormControl.errors?.['required']">Campo requerido</span>
+            <span class="block sm:inline" *ngIf="userNameFormControl.errors?.['minlength']">El campo debe tener al menos 4 caracteres</span>
+          </div>
+        </div>
+        <div class="relative mb-4" style="margin-bottom: 60px;">
+          <label for="password" class="leading-7 text-sm text-gray-600">Clave</label>
+          <input type="password" id="password" formControlName="password"
+            class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+          <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
+            *ngIf="passwordFormControl.invalid && (isFormSubmitted || passwordFormControl.touched || passwordFormControl.dirty)">
+            <span class="block sm:inline" *ngIf="passwordFormControl.errors?.['required']">Campo requerido</span>
+            <span class="block sm:inline" *ngIf="passwordFormControl.errors?.['minlength']">El campo debe tener al menos 5 caracteres</span>
+          </div>
+        </div>
+        <button type="submit" [disabled]="!loginForm.valid"
+          class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
+          (click)="onSubmit(loginForm)">
+          Ingresar
+        </button>
+      </form>
+      <p class="text-xs text-gray-500 mt-5">Form Status: {{ loginForm.status }}</p>
+    </div>  
+    
+  </div>
+
+</div>
+
+
+<!-- <router-outlet /> -->

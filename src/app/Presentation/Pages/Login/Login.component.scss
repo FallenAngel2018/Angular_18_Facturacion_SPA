@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.parent {
+    background-image: url("/back-imgs/bg-mountains-sunset.jpg");
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas:
+        "navbar-container navbar-container navbar-container"
+        "main-container main-container main-container";
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+}
+
+.navbar-container {
+    grid-area: navbar-container;
+}
+
+.main-container {
+    grid-area: main-container;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}

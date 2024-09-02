@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+nav {
+    grid-area: nav;
+}
+
+.nav {
+    /* Fuente: https://www.w3schools.com/howto/howto_css_fixed_menu.asp */
+    /* Position the navbar at the top of the page */
+    top: 0;
+    
+    /* Revisar esta propiedad después */
+    /* overflow: hidden; */
+   
+    background-color: #acacac;
+    color: white;
+    padding: 0 1rem;
+}
+
+.nav-container {
+    /* Flex */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.angular:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
