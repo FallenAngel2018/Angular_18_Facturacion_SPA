@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { InvoiceModel } from '../../../Domain/Invoice/InvoiceModel';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { InvoiceApp } from '../../../Application/Invoice/InvoiceApp';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-Invoice',
   standalone: true,
   templateUrl: './Invoice.component.html',
   styleUrls: ['./Invoice.component.css'],
-  imports: [ RouterLink ],
+  imports: [ RouterLink, RouterOutlet, CommonModule ],
   providers: [ InvoiceApp ],
 })
 export class InvoiceComponent implements OnInit {
@@ -18,7 +19,7 @@ export class InvoiceComponent implements OnInit {
   facturas: InvoiceModel[] = [];
 
   
-  constructor(private http: HttpClient, private invoiceApp: InvoiceApp) {
+  constructor(private http: HttpClient, private router: Router, private invoiceApp: InvoiceApp) {
     this.todayDate = "";
     this.getCurrentDate();
   }
@@ -48,7 +49,6 @@ export class InvoiceComponent implements OnInit {
       })
       .catch(error => console.error('Error:', error));
 
-    console.log("this.productos");
     console.log(this.facturas);
     // console.log(this.facturas[1]);
     
@@ -57,7 +57,6 @@ export class InvoiceComponent implements OnInit {
 
   }
 
-
   getCurrentDate() {
     // Obtiene la fecha actual en formato "YYYY-MM-DD"
     const today = new Date();
@@ -65,6 +64,10 @@ export class InvoiceComponent implements OnInit {
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // Mes con dos dígitos
     const dd = String(today.getDate()).padStart(2, '0'); // Día con dos dígitos
     this.todayDate = `${yyyy}-${mm}-${dd}`;
+  }
+
+  navigateToNewInvoice() {
+    this.router.navigate(['/home/add_invoice']);
   }
 
 }

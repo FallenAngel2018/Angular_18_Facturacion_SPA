@@ -49,20 +49,7 @@ export class ProductComponent implements OnInit {
         return response;
       })
       .catch(error => console.error('Error:', error));
-    // await this.productApp.getProducts(this.http, data, header);
-    // this.productos = this.GetProducts(data);
 
-    console.log("this.productos");
-    console.log(this.productos);
-    console.log(this.productos[1]);
-
-    // for (let index = 0; index < this.productos.length; index++) {
-    //   const element = this.productos[index];
-
-      
-    // }
-
-    
   }
 
 

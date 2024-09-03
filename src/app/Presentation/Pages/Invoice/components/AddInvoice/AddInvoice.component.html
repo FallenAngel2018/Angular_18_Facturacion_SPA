@@ -1,13 +1,83 @@
-<p>
-  AddInvoice works!
-</p>
+<div class="invoice-container">
+  <!-- Header -->
+  <div class="header">
+    <h2>Nueva factura</h2>
+  </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <div *ngFor="let detalle of detalles; let i = index">
-        {{ i+1 }}
-      </div>
+  <!-- Body -->
+  <div class="body">
+    <!-- Primera fila -->
+    <div class="form-row">
+      <label for="cliente">Cliente</label>
+      <input type="text" id="cliente" name="cliente">
+
+      <label for="telefono">Teléfono</label>
+      <input type="text" id="telefono" name="telefono" disabled>
+
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" disabled>
+
+      <label for="vendedor">Vendedor</label>
+      <input type="text" id="vendedor" name="vendedor">
+
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" name="fecha" value="{{ todayDate }}" disabled>
+
+      <label for="forma-pago">Forma de pago</label>
+      <select id="forma-pago" name="forma-pago">
+        <option value="credito">Crédito</option>
+        <option value="debito">Débito</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+    </div>
+
+    <!-- Segunda fila -->
+    <div class="button-row">
+      <button class="add-product-button" (click)="openModal()">Agregar productos</button>
+    </div>
+
+    <!-- Tercera fila -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre del producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unit.</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí irían las filas de productos -->
+          <tr *ngFor="let detalle of detalles; let i = index">
+            <td>{{ detalles[i].IdDetalleFactura }}</td>
+            <td>{{ detalles[i].IdProducto}}</td>
+            <td>{{ detalles[i].Cantidad}}</td>
+            <td>{{ detalles[i].PrecioUnitario | currency }}</td>
+            <td>
+                <button class="btn-action btn-red">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Código</td>
+            <td>Nombre del producto</td>
+            <td>Cantidad</td>
+            <td>Precio Unit.</td>
+            <td>Total</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<!-- Modal Component -->
+<app-AddInvoiceDetailModal 
+    [isOpen]="isModalOpen" 
+    (closeModal)="isModalOpen = false"
+    (save)="handleSave($event)">
+</app-AddInvoiceDetailModal>
+
+
+

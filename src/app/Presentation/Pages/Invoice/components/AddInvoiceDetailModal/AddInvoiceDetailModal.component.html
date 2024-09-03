@@ -1,3 +1,52 @@
-<p>
-  AddInvoiceDetailModal works!
-</p>
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()"></div>
+
+<div class="modal-content" *ngIf="isOpen">
+  <div class="modal-header">
+    <h2>Agregar producto al detalle</h2>
+    <button class="close-button" (click)="close()">X</button>
+  </div>
+
+  <div class="modal-body">
+    <!-- Primer div: Input de búsqueda y botón -->
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar producto...">
+      <button>Buscar</button>
+    </div>
+
+    <!-- Segundo div: Tabla de productos -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Agregar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{ product.IdProducto }}</td>
+            <td>{{ product.NombreProducto }}</td>
+            <td>
+              <input type="number" min="1">
+            </td>
+            <td>{{ product.PrecioProducto }}</td>
+            <td>
+              <button (click)="addProductToInvoice(product)">Agregar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tercer div: Botón de cerrar -->
+  <div class="modal-footer">
+    <button (click)="close()">Cerrar</button>
+  </div>
+</div>
+
+
