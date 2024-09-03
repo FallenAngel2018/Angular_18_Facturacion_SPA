@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavBarComponent } from './components/NavBar/NavBar.component';
 import { Router, RouterOutlet } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../../../Domain/User/UserModel';
+import { UserApp } from '../../../Application/User/UserApp';
 
 @Component({
   selector: 'app-Login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   isFormSubmitted: boolean = false;
+  loginSuccess: Boolean = false;
   userNameFormControl: AbstractControl;
   passwordFormControl: AbstractControl;
   // httpClient: HttpClient;
@@ -46,62 +48,77 @@ export class LoginComponent implements OnInit {
     const isFormValid = loginForm.valid;    
     this.isFormSubmitted = true; // this.loginForm.markAsTouched();
 
-    // this.httpClient.request('POST', this.heroesUrl, {responseType:'json', params});
+    
     const headers = new HttpHeaders()
       .set("accept", "text/plain")
       .set('Content-Type', 'application/json;',);
     const header = new HttpHeaders(
       {
         'Accept': '*/*', // */*  text/plain
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        // 'responseType':'json'
       },
     );
     
-
-    const data = {
-      nombreUsuario: this.userNameFormControl.value,
-      claveUsuario: this.passwordFormControl.value
+    
+    const data : UserModel = {
+      NombreUsuario: this.userNameFormControl.value,
+      ClaveUsuario: this.passwordFormControl.value
     };
     console.log("Data:");
-    console.log(`${data}`);
     console.log(data);
 
+    const userApp = new UserApp();
 
-    // debugger;
-    
-    // Fuente: https://stackoverflow.com/questions/62293609/simple-post-request-in-angular-2-with-type-or-model
-    // await this.http.get("https://localhost:7099/api/User").subscribe(result => {
-    //   console.log(result);
-    // }, error => console.error(error));
-    
-    // Fuente: https://stackoverflow.com/questions/62293609/simple-post-request-in-angular-2-with-type-or-model
-    // Fuente (uso del subscribe): https://stackoverflow.com/questions/55472124/subscribe-is-deprecated-use-an-observer-instead-of-an-error-callback
-    this.http.post("https://localhost:7099/api/User/request_login",
-      data, { headers: header }
-    ).subscribe({
-      next: (response) => {
-        console.log("post next pasa primero");
-        console.log(response);
-        console.log(`${response}`);
-
+    userApp.login(this.http, data, header)
+      // .then(response => console.log("response:", response))
+      .then(response => {
+        console.log("typeof response:");
+        console.log(typeof response);
         if(response == true) {
           console.log("response == true");
           this.router.navigate(['home']);
-          // this.router.navigateByUrl('/home');
-          // this.router.navigate(['home']);
-          // this.router.navigateByUrl('home');
         }
-      },     // nextHandler
-      complete: () => {
-        console.log("post complete para al final si no hay errores");
+
+        if(!response) {
+          console.log("response is false");
+          this.loginSuccess = false;
+        }
+      })
+      .catch(error => console.error('Error de login:', error));
+
+    // const data = {
+    //   nombreUsuario: this.userNameFormControl.value,
+    //   claveUsuario: this.passwordFormControl.value
+    // };
+
+    // // Fuente: https://stackoverflow.com/questions/62293609/simple-post-request-in-angular-2-with-type-or-model
+    // // Fuente (uso del subscribe): https://stackoverflow.com/questions/55472124/subscribe-is-deprecated-use-an-observer-instead-of-an-error-callback
+    // this.http.post("https://localhost:7099/api/User/request_login",
+    //   data, { headers: header }
+    // ).subscribe({
+    //   next: (response) => {
+    //     console.log("post next pasa primero");
+    //     console.log(response);
+    //     console.log(`${response}`);
+
+    //     if(response == true) {
+    //       console.log("response == true");
+    //       this.router.navigate(['home']);
+    //     }
+
+    //     if(!response) {
+    //       console.log("response is false");
+    //       this.loginSuccess = false;
+    //     }
+    //   },     // nextHandler
+    //   complete: () => {
+    //     console.log("post complete para al final si no hay errores");
         
-      }, // completeHandler
-      error: (error) => { console.log(`post error: ${error}`) },    // errorHandler 
-    });
- 
-    
-    // this.router.navigate(['home']);
-    // this.router.navigateByUrl('/home');
+    //   }, // completeHandler
+    //   error: (error) => { console.log(`post error: ${error}`) },    // errorHandler 
+    // });
+
   }
 
 }

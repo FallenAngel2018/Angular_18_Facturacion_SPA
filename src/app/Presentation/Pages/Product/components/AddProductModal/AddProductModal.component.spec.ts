@@ -3,21 +3,21 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { NavBarComponent } from './NavBar.component';
+import { AddProductModalComponent } from './AddProductModal.component';
 
-describe('NavBarComponent', () => {
-  let component: NavBarComponent;
-  let fixture: ComponentFixture<NavBarComponent>;
+describe('AddProductModalComponent', () => {
+  let component: AddProductModalComponent;
+  let fixture: ComponentFixture<AddProductModalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavBarComponent ]
+      declarations: [ AddProductModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavBarComponent);
+    fixture = TestBed.createComponent(AddProductModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

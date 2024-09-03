@@ -1,0 +1,41 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()"></div>
+
+<div class="modal-content" *ngIf="isOpen">
+  <div class="modal-header">
+    <h2>{{ isEditMode ? 'Editar Producto' : 'Agregar Producto' }}</h2>
+    <button class="close-button" (click)="close()">X</button>
+  </div>
+  
+  <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+    <div class="form-group">
+      <label for="CodigoProducto">Código del producto</label>
+      <input id="CodigoProducto" formControlName="CodigoProducto" type="text">
+      <div *ngIf="codeProductFormControl?.invalid && codeProductFormControl?.touched">
+        <small *ngIf="codeProductFormControl.errors?.['required']">El código es requerido.</small>
+        <small *ngIf="codeProductFormControl.errors?.['minlength']">El código debe tener al menos 5 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="NombreProducto">Nombre del producto</label>
+      <input id="NombreProducto" formControlName="NombreProducto" type="text">
+      <div *ngIf="nameProductFormControl?.invalid && nameProductFormControl?.touched">
+        <small *ngIf="nameProductFormControl.errors?.['required']">El nombre es requerido.</small>
+        <small *ngIf="nameProductFormControl.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="PrecioProducto">Precio del producto</label>
+      <input id="PrecioProducto" formControlName="PrecioProducto" type="number">
+      <div *ngIf="priceProductFormControl?.invalid && priceProductFormControl?.touched">
+        <small *ngIf="priceProductFormControl.errors?.['required']">El precio es requerido.</small>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="button" (click)="close()">Cerrar</button>
+      <button type="submit" [disabled]="productForm.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

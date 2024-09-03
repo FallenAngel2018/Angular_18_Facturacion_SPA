@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.invoice-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 180vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.new-invoice {
+    background-color: #28a745;
+}
+
+.new-invoice:hover {
+    background-color: #218838;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* Alinea todos los elementos al final de la fila */
+    margin-bottom: 20px;
+}
+
+.search-item {
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    /* Asegura que los elementos internos se apilen verticalmente */
+}
+
+.search-item:last-child {
+    margin-right: 0;
+    align-items: flex-start;
+    /* Alinea el botón a la izquierda */
+}
+
+
+.search-item label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-item input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f8f8f8;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .btn {
+    margin-right: 5px;
+}
+
+.pagination .btn:last-child {
+    margin-right: 0;
+}

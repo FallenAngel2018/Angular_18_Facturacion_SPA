@@ -1,3 +1,48 @@
-<p>
-  Product works!
-</p>
+<div class="container">
+  <div class="header">
+      <h2>Buscar Productos</h2>
+      <button class="add-product-btn" (click)="openModal()">Agregar Producto</button>
+  </div>
+  <div class="body">
+      <div class="search-row">
+          <label for="search-input">Código o nombre:</label>
+          <input type="text" id="search-input" class="search-input" placeholder="Ingrese código o nombre">
+          <button class="search-btn">Buscar</button>
+      </div>
+      <div class="table-container">
+          <table class="product-table">
+            <thead>
+              <tr>
+                  <th>Código</th>
+                  <th>Nombre del producto</th>
+                  <th>Precio</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody id="product-table-body">
+              <!-- Filas con botones de acciones -->
+              <tr *ngFor="let producto of productos; let i = index">
+                  <!-- <td>{{ producto.CodigoProducto }}</td>
+                  <td>{{ producto.NombreProducto?.toString() }}</td>
+                  <td>{{ producto.PrecioProducto?.toString() | currency }}</td> -->
+                  <td>{{ productos[i].CodigoProducto }}</td>
+                  <td>{{ productos[i].NombreProducto }}</td>
+                  <td>{{ productos[i].PrecioProducto?.toString() | currency }}</td>
+                  <td>
+                      <button class="btn-action btn-gray" (click)="openEditModal(producto)">Editar</button>
+                      <button class="btn-action btn-red">Eliminar</button>
+                  </td>
+              </tr>
+          </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+
+<!-- Modal Component -->
+<app-AddProductModal 
+    [isOpen]="isModalOpen" 
+    (closeModal)="isModalOpen = false"
+    (save)="handleSave($event)">
+</app-AddProductModal>

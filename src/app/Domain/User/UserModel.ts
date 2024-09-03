@@ -1,33 +1,30 @@
-// export class UserModel {
-//     IdUsuario: number;
 
-// public string? NombreUsuario { get; set; }
-// public string? ClaveUsuario { get; set; }
-
-// public int? Tipousuario { get; set; }
-// }
-
-export type UserModel = {
-    IdUsuario?: number;
-    Nombre?: String;
-    NombreUsuario?: String;
-    ClaveUsuario?: String;
-    Tipousuario?: number;
-};
-
-
-// export class UserModel {
-
-//     //Fields 
+// export type UserModel = {
 //     IdUsuario?: number;
 //     Nombre?: String;
 //     NombreUsuario?: String;
 //     ClaveUsuario?: String;
 //     Tipousuario?: number;
+// };
 
-//     constructor(){ }
+
+export class UserModel {
+    IdUsuario?: number;
+    Nombre?: String;
+    NombreUsuario?: String;
+    ClaveUsuario?: String;
+    Tipousuario?: number;
+
+    constructor(idUsuario: number, nombre: String, nombreUsuario: String, claveUsuario: String, tipoUsuario: number) {
+        this.IdUsuario = idUsuario;
+        this.Nombre = nombre;
+        this.NombreUsuario = nombreUsuario;
+        this.ClaveUsuario = claveUsuario;
+        this.Tipousuario = tipoUsuario;
+    }
+
     
 
+}
 
-// }
 

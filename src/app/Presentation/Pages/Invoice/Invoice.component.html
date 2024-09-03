@@ -1,3 +1,68 @@
-<p>
-  Invoice works!
-</p>
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+      <h2>Buscar Facturas</h2>
+      <button class="btn new-invoice" routerLink="add_invoice">Nueva Factura</button>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+      <!-- Fila 1: Inputs de búsqueda -->
+      <div class="search-row">
+        <div class="search-item">
+          <label for="invoice-number"># de factura</label>
+          <input type="text" id="invoice-number">
+        </div>
+        <div class="search-item">
+          <label for="invoice-date">Fecha</label>
+          <input type="date" id="invoice-date" min="{{todayDate}}">
+        </div>
+        <div class="search-item">
+          <label for="invoice-total">Total</label>
+          <input type="number" id="invoice-total" step="0.01">
+        </div>
+        <div class="search-item">
+          <button class="btn search">Buscar</button>
+        </div>
+      </div>
+
+      <!-- Fila 2: Tabla -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th># Factura</th>
+              <th>Fecha</th>
+              <th>Id Cliente</th>
+              <th>Id Vendedor</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí irían los registros de facturas -->
+            <tr>
+              <td>1</td>
+              <td>2024-09-03</td>
+              <td>1001</td>
+              <td>2001</td>
+              <td>$150.00</td>
+              <td>
+                <button class="btn edit">Editar</button>
+                <button class="btn delete">Eliminar</button>
+              </td>
+            </tr>
+            <!-- Más registros -->
+          </tbody>
+        </table>
+        <!-- Paginación -->
+        <div class="pagination">
+          <button class="btn page">1</button>
+          <button class="btn page">2</button>
+          <!-- Más botones de página -->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
