@@ -8,38 +8,37 @@
   
   <form [formGroup]="userForm" (ngSubmit)="save()">
     <div class="form-group">
-      <label for="NumIdentificacion">Número de identificación</label>
-      <input id="NumIdentificacion" formControlName="NumIdentificacion" type="text">
-      <div *ngIf="idNumberFormControl?.invalid && idNumberFormControl?.touched">
-        <small *ngIf="idNumberFormControl.errors?.['required']">El # de identificación es requerido.</small>
-        <small *ngIf="idNumberFormControl.errors?.['minlength']">El # de identificación debe tener al menos 10 caracteres.</small>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="NombreCliente">Nombre</label>
-      <input id="NombreCliente" formControlName="NombreCliente" type="text">
+      <label for="Nombre">Nombre</label>
+      <input id="Nombre" formControlName="Nombre" type="text">
       <div *ngIf="nameFormControl?.invalid && nameFormControl?.touched">
         <small *ngIf="nameFormControl.errors?.['required']">El nombre es requerido.</small>
-        <small *ngIf="nameFormControl.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</small>
+        <small *ngIf="nameFormControl.errors?.['minlength']">El nombre debe tener al menos 4 caracteres.</small>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="NumTelefono"># Teléfono</label>
-      <input id="NumTelefono" formControlName="NumTelefono" type="text">
-      <div *ngIf="phoneNumberFormControl?.invalid && phoneNumberFormControl?.touched">
-        <small *ngIf="phoneNumberFormControl.errors?.['required']">El número de teléfono es requerido.</small>
-        <small *ngIf="phoneNumberFormControl.errors?.['minlength']">El número de teléfono debe tener al menos 7 caracteres.</small>
+      <label for="NombreUsuario">Nombre de usuario</label>
+      <input id="NombreUsuario" formControlName="NombreUsuario" type="text">
+      <div *ngIf="usernameFormControl?.invalid && usernameFormControl?.touched">
+        <small *ngIf="usernameFormControl.errors?.['required']">El nombre de usuario es requerido.</small>
+        <small *ngIf="usernameFormControl.errors?.['minlength']">El nombre de usuario debe tener al menos 5 caracteres.</small>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="Correo">Correo electrónico</label>
-      <input id="Correo" formControlName="Correo" type="text">
-      <div *ngIf="mailFormControl?.invalid && mailFormControl?.touched">
-        <small *ngIf="mailFormControl.errors?.['required']">El correo es requerido.</small>
-        <small *ngIf="mailFormControl.errors?.['minlength']">El correo debe tener al menos 10 caracteres.</small>
+      <label for="ClaveUsuario">Clave</label>
+      <input id="ClaveUsuario" formControlName="ClaveUsuario" type="text">
+      <div *ngIf="passwordFormControl?.invalid && passwordFormControl?.touched">
+        <small *ngIf="passwordFormControl.errors?.['required']">La clave es requerida.</small>
+        <small *ngIf="passwordFormControl.errors?.['minlength']">La clave debe tener al menos 7 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="TipoUsuario">Tipo de Usuario</label>
+      <input id="TipoUsuario" formControlName="TipoUsuario" type="text">
+      <div *ngIf="userTypeFormControl?.invalid && userTypeFormControl?.touched">
+        <small *ngIf="userTypeFormControl.errors?.['required']">El tipo de usuario es requerido.</small>
       </div>
     </div>
 

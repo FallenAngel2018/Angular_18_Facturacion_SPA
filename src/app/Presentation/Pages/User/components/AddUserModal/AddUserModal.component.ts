@@ -22,23 +22,23 @@ export class AddUserModalComponent implements OnInit {
 
   // Campos formulario
   userForm: FormGroup;
-  idNumberFormControl: AbstractControl;
   nameFormControl: AbstractControl;
-  phoneNumberFormControl: AbstractControl;
-  mailFormControl: AbstractControl;
+  usernameFormControl: AbstractControl;
+  passwordFormControl: AbstractControl;
+  userTypeFormControl: AbstractControl;
 
   constructor(private http: HttpClient, private userApp: UserApp) {
     this.userForm = new FormGroup({
-      NumIdentificacion: new FormControl("", [ Validators.required, Validators.minLength(10) ]),
-      NombreCliente: new FormControl("", [ Validators.required, Validators.minLength(3) ]),
-      NumTelefono: new FormControl("", [ Validators.required, Validators.minLength(7) ]),
-      Correo: new FormControl("", [ Validators.required, Validators.minLength(10) ]),
+      Nombre: new FormControl("", [ Validators.required, Validators.minLength(4) ]),
+      NombreUsuario: new FormControl("", [ Validators.required, Validators.minLength(5) ]),
+      ClaveUsuario: new FormControl("", [ Validators.required, Validators.minLength(7) ]),
+      TipoUsuario: new FormControl("", [ Validators.required ]),
     });
 
-    this.idNumberFormControl = this.userForm.controls["NumIdentificacion"];
-    this.nameFormControl = this.userForm.controls["NombreCliente"];
-    this.phoneNumberFormControl = this.userForm.controls["NumTelefono"];
-    this.mailFormControl = this.userForm.controls["Correo"];
+    this.nameFormControl = this.userForm.controls["Nombre"];
+    this.usernameFormControl = this.userForm.controls["NombreUsuario"];
+    this.passwordFormControl = this.userForm.controls["ClaveUsuario"];
+    this.userTypeFormControl = this.userForm.controls["TipoUsuario"];
   }
 
   ngOnInit() {
@@ -47,8 +47,8 @@ export class AddUserModalComponent implements OnInit {
   save() {
     if (this.userForm.valid) {
       // Obtener los datos del formulario
-      const client: UserModel = this.userForm.value;
-      console.log('User Data:', client);
+      const user: UserModel = this.userForm.value;
+      console.log('User Data:', user);
 
       const header = new HttpHeaders(
         {
@@ -57,8 +57,7 @@ export class AddUserModalComponent implements OnInit {
         },
       );
 
-
-      this.userApp.addUser(this.http, client, header)
+      this.userApp.addUser(this.http, user, header)
         .then(response => {
           console.log("typeof response:");
           console.log(typeof response);
