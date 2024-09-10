@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isFormSubmitted: boolean = false;
   loginSuccess: Boolean = false;
+  loginMessage: String = "";
   userNameFormControl: AbstractControl;
   passwordFormControl: AbstractControl;
-  // httpClient: HttpClient;
 
   // constructor(private router: Router) {
   constructor(private http: HttpClient, private router: Router) {
@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
 
     this.userNameFormControl = this.loginForm.controls["username"];
     this.passwordFormControl = this.loginForm.controls["password"];
-    // this.httpClient = http;
-
   }
 
 
@@ -45,7 +43,6 @@ export class LoginComponent implements OnInit {
     // TODO: Use EventEmitter with form value
     console.log("Login Form Values");
     console.warn(this.loginForm.value);
-    const isFormValid = loginForm.valid;    
     this.isFormSubmitted = true; // this.loginForm.markAsTouched();
 
     
@@ -65,59 +62,21 @@ export class LoginComponent implements OnInit {
       NombreUsuario: this.userNameFormControl.value,
       ClaveUsuario: this.passwordFormControl.value
     };
-    console.log("Data:");
-    console.log(data);
 
     const userApp = new UserApp();
 
     userApp.login(this.http, data, header)
-      // .then(response => console.log("response:", response))
       .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
-        if(response == true) {
-          console.log("response == true");
+        if(response["LoginExitoso"]) {
           this.router.navigate(['home']);
         }
 
-        if(!response) {
-          console.log("response is false");
+        if(!response["LoginExitoso"]) {
           this.loginSuccess = false;
+          this.loginMessage = response["Message"];
         }
       })
       .catch(error => console.error('Error de login:', error));
-
-    // const data = {
-    //   nombreUsuario: this.userNameFormControl.value,
-    //   claveUsuario: this.passwordFormControl.value
-    // };
-
-    // // Fuente: https://stackoverflow.com/questions/62293609/simple-post-request-in-angular-2-with-type-or-model
-    // // Fuente (uso del subscribe): https://stackoverflow.com/questions/55472124/subscribe-is-deprecated-use-an-observer-instead-of-an-error-callback
-    // this.http.post("https://localhost:7099/api/User/request_login",
-    //   data, { headers: header }
-    // ).subscribe({
-    //   next: (response) => {
-    //     console.log("post next pasa primero");
-    //     console.log(response);
-    //     console.log(`${response}`);
-
-    //     if(response == true) {
-    //       console.log("response == true");
-    //       this.router.navigate(['home']);
-    //     }
-
-    //     if(!response) {
-    //       console.log("response is false");
-    //       this.loginSuccess = false;
-    //     }
-    //   },     // nextHandler
-    //   complete: () => {
-    //     console.log("post complete para al final si no hay errores");
-        
-    //   }, // completeHandler
-    //   error: (error) => { console.log(`post error: ${error}`) },    // errorHandler 
-    // });
 
   }
 

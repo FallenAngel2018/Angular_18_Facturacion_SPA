@@ -1,3 +1,46 @@
-<p>
-  Client works!
-</p>
+<div class="container">
+  <div class="header">
+      <h2>Buscar Clientes</h2>
+      <button class="add-client-btn" (click)="openModal()">Agregar Cliente</button>
+  </div>
+  <div class="body">
+      <div class="search-row">
+          <label for="search-input">Cédula o nombre:</label>
+          <input type="text" id="search-input" class="search-input" placeholder="Ingrese cédula o nombre">
+          <button class="search-btn">Buscar</button>
+      </div>
+      <div class="table-container">
+          <table class="client-table">
+            <thead>
+              <tr>
+                  <th># Identificación</th>
+                  <th>Nombre</th>
+                  <th># Teléfono</th>
+                  <th>Correo</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody id="client-table-body">
+              <!-- Filas con botones de acciones -->
+              <tr *ngFor="let cliente of clientes">
+                  <td>{{ cliente.NumIdentificacion }}</td>
+                  <td>{{ cliente.NombreCliente }}</td>
+                  <td>{{ cliente.NumTelefono }}</td>
+                  <td>{{ cliente.Correo }}</td>
+                  <td>
+                      <button class="btn-action btn-gray" (click)="openEditModal(cliente)">Editar</button>
+                      <button class="btn-action btn-red">Eliminar</button>
+                  </td>
+              </tr>
+          </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+<!-- Modal Component -->
+<app-AddClientModal 
+    *ngIf="isModalOpen"
+    [isOpen]="isModalOpen"
+    (closeModal)="isModalOpen = false">
+</app-AddClientModal>

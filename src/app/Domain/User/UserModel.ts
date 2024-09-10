@@ -13,14 +13,14 @@ export class UserModel {
     Nombre?: String;
     NombreUsuario?: String;
     ClaveUsuario?: String;
-    Tipousuario?: number;
+    TipoUsuario?: number;
 
     constructor(idUsuario: number, nombre: String, nombreUsuario: String, claveUsuario: String, tipoUsuario: number) {
         this.IdUsuario = idUsuario;
         this.Nombre = nombre;
         this.NombreUsuario = nombreUsuario;
         this.ClaveUsuario = claveUsuario;
-        this.Tipousuario = tipoUsuario;
+        this.TipoUsuario = tipoUsuario;
     }
 
     

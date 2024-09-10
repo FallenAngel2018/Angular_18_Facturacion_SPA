@@ -29,8 +29,8 @@
             <span class="block sm:inline" *ngIf="passwordFormControl.errors?.['minlength']">El campo debe tener al menos 5 caracteres</span>
           </div>
         </div>
-        <p class="text-xs text-red-500 mt-3" style="margin-bottom: 40px;"
-            *ngIf="isFormSubmitted && !loginSuccess">Credenciales incorrectas.</p>
+        <p class="text-xs text-red-500 mt-3" style="margin-bottom: 30px;"
+            *ngIf="isFormSubmitted && !loginSuccess">{{ loginMessage }}</p>
         <button type="submit" [disabled]="!loginForm.valid"
           class="text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg"
           (click)="onSubmit(loginForm)">

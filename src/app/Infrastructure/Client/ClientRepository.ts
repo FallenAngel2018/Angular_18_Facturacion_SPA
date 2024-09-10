@@ -1,17 +1,17 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { IInvoiceRepository } from "../../Domain/Invoice/IInvoiceRepository";
-import { InvoiceModel } from "../../Domain/Invoice/InvoiceModel";
+import { ClientModel } from "../../Domain/Client/ClientModel";
+import { IClientRepository } from "../../Domain/Client/IClientRepository";
 import { ConfigEnv } from "../../Utils/ConfigEnv";
 
 
-export class InvoiceRepositoryImplementation implements IInvoiceRepository {
+export class ClientRepositoryImplementation implements IClientRepository {
 
   private apiEnv: string = ConfigEnv.ENVIRONMENT;
-  private entityRoute: string = "/api/Invoice";
-  
+  private entityRoute: string = "/api/Client";
 
-  async GetInvoices(http: HttpClient, data: InvoiceModel, header: HttpHeaders): Promise<InvoiceModel[] | any> {
-    const entityAction: string = "/get_invoices";
+
+  async GetClients(http: HttpClient, data: ClientModel, header: HttpHeaders): Promise<ClientModel[] | any> {
+    const entityAction: string = "/get_clients";
 
     return new Promise((resolve, reject) => {
         http.post(this.apiEnv + this.entityRoute + entityAction,
@@ -34,9 +34,9 @@ export class InvoiceRepositoryImplementation implements IInvoiceRepository {
     });
   }
 
-  async AddInvoice(http: HttpClient, data: InvoiceModel, header: HttpHeaders): Promise<InvoiceModel | any> {
-    const entityAction: string = "/add_invoice";
-
+  async AddClient(http: HttpClient, data: ClientModel, header: HttpHeaders): Promise<ClientModel | any> {
+    const entityAction: string = "/add_client";
+    
     return new Promise((resolve, reject) => {
         http.post(this.apiEnv + this.entityRoute + entityAction,
           data, { headers: header }

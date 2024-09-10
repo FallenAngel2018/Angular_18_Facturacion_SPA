@@ -4,13 +4,15 @@ import { ProductApp } from '../../../../../Application/Product/ProductApp';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductModel } from '../../../../../Domain/Product/ProductModel';
+import { ProductService } from '../../Services/Product.service';
 
 @Component({
   selector: 'app-AddProductModal',
   standalone: true,
   templateUrl: './AddProductModal.component.html',
+  styleUrls: ['./AddProductModal.component.css'],
   imports: [ ReactiveFormsModule, CommonModule ],
-  styleUrls: ['./AddProductModal.component.css']
+  providers: [ ProductApp, ProductService ]
 })
 export class AddProductModalComponent implements OnInit {
   
@@ -27,7 +29,7 @@ export class AddProductModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<any> = new EventEmitter();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private productService: ProductService) {
     this.productApp = new ProductApp();
 
     this.productForm = new FormGroup({
@@ -55,6 +57,11 @@ export class AddProductModalComponent implements OnInit {
       // Obtener los datos del formulario
       const product: ProductModel = this.productForm.value;
       console.log('Product Data:', product);
+      
+      this.productService.addProduct(product);
+      console.log("saveProduct ejecutado:");
+      console.log(this.productService.getProducts());
+
 
       const header = new HttpHeaders(
         {
@@ -65,13 +72,15 @@ export class AddProductModalComponent implements OnInit {
       );
 
 
-      this.productApp.addProduct(this.http, product, header)
-      .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
-        console.log(response);
-      })
-      .catch(error => console.error('Error de login:', error));
+
+      // this.productApp.addProduct(this.http, product, header)
+      //   .then(response => {
+      //     console.log("typeof response:");
+      //     console.log(typeof response);
+      //     console.log(response);
+      //   })
+      //   .catch(error => console.error('Error al ingresar producto (Angular):', error));
+      
       
       this.save.emit();
       this.close();

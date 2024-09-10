@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 150vh;
+    max-width: 800px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #007bff;
+    color: white;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.add-client-btn {
+    padding: 8px 16px;
+    background-color: white;
+    color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-client-btn:hover {
+    background-color: #e7f0ff;
+}
+
+.body {
+    padding: 16px;
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.search-row label {
+    margin-right: 8px;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 8px;
+    margin-right: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+// .client-table {
+//     /* width: 100%; */
+//     border-collapse: collapse;
+// }
+
+// .client-table th, .client-table td {
+//     padding: 30px;
+//     text-align: center;
+//     border-bottom: 1px solid #ddd;
+// }
+
+// .client-table th {
+//     background-color: #f4f4f4;
+// }
+
+.client-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.client-table th, .client-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.client-table th {
+    background-color: #f4f4f4;
+}
+
+
+.btn-action {
+    padding: 4px 8px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-gray {
+    background-color: #6c757d; /* Gris */
+}
+
+.btn-red {
+    background-color: #dc3545; /* Rojo */
+}
+
+.btn-gray:hover {
+    background-color: #5a6268; /* Gris oscuro */
+}
+
+.btn-red:hover {
+    background-color: #c82333; /* Rojo oscuro */
+}

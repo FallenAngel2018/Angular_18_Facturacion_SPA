@@ -1,3 +1,48 @@
-<p>
-  User works!
-</p>
+<div class="container">
+  <div class="header">
+      <h2>Buscar Usuarios</h2>
+      <button class="add-btn" (click)="openModal()">Agregar Usuario</button>
+  </div>
+  <div class="body">
+      <div class="search-row">
+          <label for="search-input">Cédula o nombre:</label>
+          <input type="text" id="search-input" class="search-input" placeholder="Ingrese cédula o nombre">
+          <button class="search-btn">Buscar</button>
+      </div>
+      <div class="table-container">
+          <table class="user-table">
+            <thead>
+              <tr>
+                  <th># Id. Usuario</th>
+                  <th>Nombre</th>
+                  <th>Nombre de usuario</th>
+                  <th>Clave</th>
+                  <th>Tipo Usuario</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody id="user-table-body">
+              <!-- Filas con botones de acciones -->
+              <tr *ngFor="let usuario of usuarios">
+                  <td>{{ usuario.IdUsuario }}</td>
+                  <td>{{ usuario.Nombre }}</td>
+                  <td>{{ usuario.NombreUsuario }}</td>
+                  <td>{{ usuario.ClaveUsuario }}</td>
+                  <td>{{ usuario.TipoUsuario }}</td>
+                  <td>
+                      <button class="btn-action btn-gray" (click)="openEditModal(usuario)">Editar</button>
+                      <button class="btn-action btn-red">Eliminar</button>
+                  </td>
+              </tr>
+          </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+<!-- Modal Component -->
+<app-AddUserModal 
+    *ngIf="isModalOpen"
+    [isOpen]="isModalOpen"
+    (closeModal)="isModalOpen = false">
+</app-AddUserModal>

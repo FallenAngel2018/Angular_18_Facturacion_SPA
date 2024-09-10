@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IUserRepository } from "../../Domain/User/IUserRepository";
 import { UserRepositoryImplementation } from "../../Infrastructure/User/UserRepository";
 import { UserModel } from "../../Domain/User/UserModel";
+import { LoginResponseModel } from "../../Domain/Login/LoginResponseModel";
 
 export class UserApp {
     private userRepository: IUserRepository;
@@ -15,8 +16,16 @@ export class UserApp {
     
 
     // Método definido con función flecha para mantener el contexto de `this`
-    login = (http: HttpClient, data: UserModel, headers: HttpHeaders): Promise<boolean | any> => {
+    login = (http: HttpClient, data: UserModel, headers: HttpHeaders): Promise<LoginResponseModel | any> => { // boolean
         return this.userRepository.RequestLogin(http, data, headers);
+    }
+
+    getUsers = (http: HttpClient, data: UserModel, headers: HttpHeaders): Promise<UserModel[] | any> => {
+        return this.userRepository.GetUsers(http, data, headers);
+    }
+
+    addUser = (http: HttpClient, data: UserModel, headers: HttpHeaders): Promise<UserModel | any> => {
+        return this.userRepository.AddUser(http, data, headers);
     }
 
 }

@@ -22,9 +22,6 @@
           <tbody id="product-table-body">
               <!-- Filas con botones de acciones -->
               <tr *ngFor="let producto of productos; let i = index">
-                  <!-- <td>{{ producto.CodigoProducto }}</td>
-                  <td>{{ producto.NombreProducto?.toString() }}</td>
-                  <td>{{ producto.PrecioProducto?.toString() | currency }}</td> -->
                   <td>{{ productos[i].CodigoProducto }}</td>
                   <td>{{ productos[i].NombreProducto }}</td>
                   <td>{{ productos[i].PrecioProducto?.toString() | currency }}</td>

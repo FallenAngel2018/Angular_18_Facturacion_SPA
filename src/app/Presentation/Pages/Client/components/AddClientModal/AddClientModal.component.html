@@ -1,0 +1,51 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()"></div>
+
+<div class="modal-content" *ngIf="isOpen">
+  <div class="modal-header">
+    <h2>{{ isEditMode ? 'Editar Cliente' : 'Agregar Cliente' }}</h2>
+    <button class="close-button" (click)="close()">X</button>
+  </div>
+  
+  <form [formGroup]="clientForm" (ngSubmit)="saveClient()">
+    <div class="form-group">
+      <label for="NumIdentificacion">Número de identificación</label>
+      <input id="NumIdentificacion" formControlName="NumIdentificacion" type="text">
+      <div *ngIf="idNumberFormControl?.invalid && idNumberFormControl?.touched">
+        <small *ngIf="idNumberFormControl.errors?.['required']">El # de identificación es requerido.</small>
+        <small *ngIf="idNumberFormControl.errors?.['minlength']">El # de identificación debe tener al menos 10 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="NombreCliente">Nombre</label>
+      <input id="NombreCliente" formControlName="NombreCliente" type="text">
+      <div *ngIf="nameFormControl?.invalid && nameFormControl?.touched">
+        <small *ngIf="nameFormControl.errors?.['required']">El nombre es requerido.</small>
+        <small *ngIf="nameFormControl.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="NumTelefono"># Teléfono</label>
+      <input id="NumTelefono" formControlName="NumTelefono" type="text">
+      <div *ngIf="phoneNumberFormControl?.invalid && phoneNumberFormControl?.touched">
+        <small *ngIf="phoneNumberFormControl.errors?.['required']">El número de teléfono es requerido.</small>
+        <small *ngIf="phoneNumberFormControl.errors?.['minlength']">El número de teléfono debe tener al menos 7 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="Correo">Correo electrónico</label>
+      <input id="Correo" formControlName="Correo" type="text">
+      <div *ngIf="mailFormControl?.invalid && mailFormControl?.touched">
+        <small *ngIf="mailFormControl.errors?.['required']">El correo es requerido.</small>
+        <small *ngIf="mailFormControl.errors?.['minlength']">El correo debe tener al menos 10 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="button" (click)="close()">Cerrar</button>
+      <button type="submit" [disabled]="clientForm.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

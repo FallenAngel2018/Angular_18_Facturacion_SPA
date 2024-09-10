@@ -1,7 +1,7 @@
 
 export type ProductModel = {
     IdProducto?: number;
-    CodigoProducto?: String;
-    NombreProducto?: String;
-    PrecioProducto?: Number;
+    CodigoProducto?: string;
+    NombreProducto?: string;
+    PrecioProducto?: number;
 };

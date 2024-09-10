@@ -13,7 +13,7 @@ import { ProductService } from './Services/Product.service';
   templateUrl: './Product.component.html',
   imports:[ AddProductModalComponent, CommonModule ],
   styleUrls: ['./Product.component.css'],
-  providers: [ ProductApp ]
+  providers: [ ProductApp, ProductService ]
 })
 export class ProductComponent implements OnInit {
 
@@ -23,7 +23,6 @@ export class ProductComponent implements OnInit {
   isEditMode: boolean = false;
 
   constructor(private http: HttpClient, private productApp: ProductApp, private productService: ProductService) {
-    // this.productApp = new ProductApp();
   }
 
   async ngOnInit() {
@@ -32,23 +31,23 @@ export class ProductComponent implements OnInit {
       this.productos = products;
     });
 
-    const data : ProductModel = { };
-    const headers = new HttpHeaders(
-      {
-        'Accept': '*/*', // */*  text/plain
-        'Content-Type': 'application/json',
-      },
-    );
+    // const data : ProductModel = { };
+    // const headers = new HttpHeaders(
+    //   {
+    //     'Accept': '*/*', // */*  text/plain
+    //     'Content-Type': 'application/json',
+    //   },
+    // );
 
-    this.productos = await this.productApp.getProducts(this.http, data, headers)
-      .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
-        console.log(response);
+    // this.productos = await this.productApp.getProducts(this.http, data, headers)
+    //   .then(response => {
+    //     console.log("typeof response:");
+    //     console.log(typeof response);
+    //     console.log(response);
 
-        return response;
-      })
-      .catch(error => console.error('Error:', error));
+    //     return response;
+    //   })
+    //   .catch(error => console.error('Error:', error));
 
   }
 
