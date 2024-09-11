@@ -4,13 +4,15 @@ import { UserModel } from '../../../Domain/User/UserModel';
 import { UserApp } from '../../../Application/User/UserApp';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AddUserModalComponent } from './components/AddUserModal/AddUserModal.component';
+import { UserTypePipe } from './pipes/UserType.pipe';
+
 
 @Component({
   selector: 'app-User',
   standalone: true,
   templateUrl: './User.component.html',
   styleUrls: ['./User.component.scss'],
-  imports: [ CommonModule, AddUserModalComponent ],
+  imports: [ CommonModule, AddUserModalComponent, UserTypePipe ],
   providers: [ UserApp ],
 })
 export class UserComponent implements OnInit {
@@ -20,7 +22,8 @@ export class UserComponent implements OnInit {
   // Campos para modal
   isModalOpen = false;
   isEditMode: boolean = false;
-  selectedUser: UserModel | null = null;
+  selectedUser: UserModel = new UserModel();
+  // selectedUser: UserModel | null = null;
 
   constructor(private http: HttpClient, private userApp: UserApp) { }
 
@@ -46,23 +49,24 @@ export class UserComponent implements OnInit {
 
   openModal() {
     this.isModalOpen = true;
+    this.selectedUser = new UserModel();
   }
 
   openEditModal(user: UserModel): void {
-    this.isEditMode = true;
-    this.selectedUser = user;
-    // this.productForm.patchValue({
-    //   CodigoProducto: product.CodigoProducto,
-    //   NombreProducto: product.NombreProducto,
-    //   PrecioProducto: product.PrecioProducto
-    // });
+    console.log("openEditModal(user: UserModel) ejecutado - Usuario:");
+    console.log(user);
+    
     // Lógica para abrir el modal
-    const modal = document.getElementById('clientModal');
-    if (modal) {
-      modal.style.display = 'block';
-    }
+    // const modal = document.getElementById('clientModal');
+    // if (modal) {
+    //   modal.style.display = 'block';
+    // }
 
+    this.selectedUser = user;
+    this.isEditMode = true;
     this.isModalOpen = true;
+    console.log("this.selectedUser = user:");
+    console.log(this.selectedUser);
   }
 
 }

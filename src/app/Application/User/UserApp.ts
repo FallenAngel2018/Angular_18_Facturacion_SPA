@@ -28,4 +28,8 @@ export class UserApp {
         return this.userRepository.AddUser(http, data, headers);
     }
 
+    updateUser = (http: HttpClient, data: UserModel, headers: HttpHeaders): Promise<UserModel | any> => {
+        return this.userRepository.UpdateUser(http, data, headers);
+    }
+
 }

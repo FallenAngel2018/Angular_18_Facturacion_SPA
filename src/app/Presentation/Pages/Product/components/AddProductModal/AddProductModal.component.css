@@ -78,10 +78,10 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 400px;
   /* Adjust width as needed */
-  z-index: 1000;
+  width: 400px;
   /* Ensure the modal is on top of the overlay */
+  z-index: 1000;
 }
 
 /* Modal header */
@@ -96,7 +96,7 @@
 .close-button {
   background: transparent;
   border: none;
-  font-size: 1.5em;
+  font-size: 18px;
   cursor: pointer;
 }
 

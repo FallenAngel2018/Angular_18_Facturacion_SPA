@@ -10,6 +10,8 @@
     <div class="form-group">
       <label for="Nombre">Nombre</label>
       <input id="Nombre" formControlName="Nombre" type="text">
+      <!-- <input id="Nombre" [(ngModel)]="user.Nombre" type="text"> -->
+      <!-- <input id="Nombre" formControlName="Nombre" [(ngModel)]="user.Nombre" type="text"> -->
       <div *ngIf="nameFormControl?.invalid && nameFormControl?.touched">
         <small *ngIf="nameFormControl.errors?.['required']">El nombre es requerido.</small>
         <small *ngIf="nameFormControl.errors?.['minlength']">El nombre debe tener al menos 4 caracteres.</small>
@@ -19,6 +21,8 @@
     <div class="form-group">
       <label for="NombreUsuario">Nombre de usuario</label>
       <input id="NombreUsuario" formControlName="NombreUsuario" type="text">
+      <!-- <input id="NombreUsuario" [(ngModel)]="user.NombreUsuario" type="text"> -->
+      <!-- <input id="NombreUsuario" formControlName="NombreUsuario" [(ngModel)]="user.NombreUsuario" type="text"> -->
       <div *ngIf="usernameFormControl?.invalid && usernameFormControl?.touched">
         <small *ngIf="usernameFormControl.errors?.['required']">El nombre de usuario es requerido.</small>
         <small *ngIf="usernameFormControl.errors?.['minlength']">El nombre de usuario debe tener al menos 5 caracteres.</small>
@@ -28,6 +32,8 @@
     <div class="form-group">
       <label for="ClaveUsuario">Clave</label>
       <input id="ClaveUsuario" formControlName="ClaveUsuario" type="text">
+      <!-- <input id="ClaveUsuario" [(ngModel)]="user.ClaveUsuario" type="text"> -->
+      <!-- <input id="ClaveUsuario" formControlName="ClaveUsuario" [(ngModel)]="user.ClaveUsuario" type="text"> -->
       <div *ngIf="passwordFormControl?.invalid && passwordFormControl?.touched">
         <small *ngIf="passwordFormControl.errors?.['required']">La clave es requerida.</small>
         <small *ngIf="passwordFormControl.errors?.['minlength']">La clave debe tener al menos 7 caracteres.</small>
@@ -37,6 +43,8 @@
     <div class="form-group">
       <label for="TipoUsuario">Tipo de Usuario</label>
       <input id="TipoUsuario" formControlName="TipoUsuario" type="text">
+      <!-- <input id="TipoUsuario" [(ngModel)]="user.TipoUsuario" type="text"> -->
+      <!-- <input id="TipoUsuario" formControlName="TipoUsuario" [(ngModel)]="user.TipoUsuario" type="text"> -->
       <div *ngIf="userTypeFormControl?.invalid && userTypeFormControl?.touched">
         <small *ngIf="userTypeFormControl.errors?.['required']">El tipo de usuario es requerido.</small>
       </div>

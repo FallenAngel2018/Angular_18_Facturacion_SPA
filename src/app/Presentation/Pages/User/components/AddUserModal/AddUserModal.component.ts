@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserApp } from '../../../../../Application/User/UserApp';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../../../../../Domain/User/UserModel';
@@ -10,12 +10,13 @@ import { UserModel } from '../../../../../Domain/User/UserModel';
   standalone: true,
   templateUrl: './AddUserModal.component.html',
   styleUrls: ['./AddUserModal.component.scss'],
-  imports:[ ReactiveFormsModule, CommonModule ],
+  imports:[ ReactiveFormsModule, FormsModule, CommonModule ],
   providers: [ UserApp ],
 })
 export class AddUserModalComponent implements OnInit {
 
   // Campos modal
+  @Input() user: UserModel = new UserModel(); // Este usuario puede ser null si es un nuevo usuario.
   @Input() isOpen: boolean = false;
   @Input() isEditMode: boolean = false;
   @Output() closeModal: EventEmitter<void> = new EventEmitter();
@@ -39,9 +40,19 @@ export class AddUserModalComponent implements OnInit {
     this.usernameFormControl = this.userForm.controls["NombreUsuario"];
     this.passwordFormControl = this.userForm.controls["ClaveUsuario"];
     this.userTypeFormControl = this.userForm.controls["TipoUsuario"];
-  }
 
+  }
+  
   ngOnInit() {
+    if(this.isEditMode) {
+      this.userForm.patchValue({
+        Nombre: this.user.Nombre
+      });
+    }
+    if(!this.isEditMode) {
+      this.cleanForm();
+      this.userForm.reset();
+    }
   }
 
   save() {
@@ -49,6 +60,7 @@ export class AddUserModalComponent implements OnInit {
       // Obtener los datos del formulario
       const user: UserModel = this.userForm.value;
       console.log('User Data:', user);
+      debugger;
 
       const header = new HttpHeaders(
         {
@@ -57,14 +69,28 @@ export class AddUserModalComponent implements OnInit {
         },
       );
 
-      this.userApp.addUser(this.http, user, header)
+      // Si se está agregando un usuario nuevo...
+      if(!this.isEditMode) {
+        this.userApp.addUser(this.http, user, header)
         .then(response => {
           console.log("typeof response:");
           console.log(typeof response);
           console.log(response);
         })
         .catch(error => console.error('Error de login:', error));
-        
+      }
+
+      // Si se está actualizando un usuario seleccionado por el usuario...
+      if(this.isEditMode && user.IdUsuario! > 0) {
+        this.userApp.updateUser(this.http, user, header)
+        .then(response => {
+          console.log("typeof response:");
+          console.log(typeof response);
+          console.log(response);
+        })
+        .catch(error => console.error('Error de login:', error));
+      }
+
       // this.save.emit();
       this.close();
     } else {
@@ -73,7 +99,19 @@ export class AddUserModalComponent implements OnInit {
   }
 
   close() {
+    this.user = new UserModel();
+    this.cleanForm();
+    this.userForm.reset();
     this.closeModal.emit();
+  }
+
+  cleanForm(): void {
+    this.userForm.patchValue({
+      Nombre: "",
+      NombreUsuario: "",
+      ClaveUsuario: "",
+      TipoUsuario: "",
+    });
   }
 
 }

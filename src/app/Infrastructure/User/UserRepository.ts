@@ -3,6 +3,7 @@ import { UserModel } from "../../Domain/User/UserModel";
 import { IUserRepository } from "../../Domain/User/IUserRepository";
 import { LoginResponseModel } from "../../Domain/Login/LoginResponseModel";
 import { ConfigEnv } from "../../Utils/ConfigEnv";
+import { UserResponseModel } from "../../Domain/User/UserResponseModel";
 
 
 export class UserRepositoryImplementation implements IUserRepository {
@@ -39,7 +40,7 @@ export class UserRepositoryImplementation implements IUserRepository {
     const entityAction: string = "/get_users";
 
     return new Promise((resolve, reject) => {
-        http.post(this.apiEnv + this.entityRoute + entityAction,
+        http.post<UserModel[]>(this.apiEnv + this.entityRoute + entityAction,
           data, { headers: header }
         ).subscribe({
           next: (response) => {
@@ -64,6 +65,28 @@ export class UserRepositoryImplementation implements IUserRepository {
 
     return new Promise((resolve, reject) => {
         http.post(this.apiEnv + this.entityRoute + entityAction,
+          data, { headers: header }
+        ).subscribe({
+          next: (response) => {
+            console.log("post next pasa primero");
+            console.log(response);
+
+            resolve(response);
+          },
+          error: (error) => { // errorHandler 
+            console.log(`post error: ${error}`);
+
+            reject(error);
+          },
+        });
+    });
+  }
+
+  async UpdateUser(http: HttpClient, data: UserModel, header: HttpHeaders): Promise<UserModel | any> {
+    const entityAction: string = "/update_user";
+
+    return new Promise((resolve, reject) => {
+        http.put<UserResponseModel>(this.apiEnv + this.entityRoute + entityAction,
           data, { headers: header }
         ).subscribe({
           next: (response) => {

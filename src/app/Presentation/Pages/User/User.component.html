@@ -28,7 +28,8 @@
                   <td>{{ usuario.Nombre }}</td>
                   <td>{{ usuario.NombreUsuario }}</td>
                   <td>{{ usuario.ClaveUsuario }}</td>
-                  <td>{{ usuario.TipoUsuario }}</td>
+                  <!-- <td>{{ usuario.TipoUsuario }}</td> -->
+                  <td>{{ usuario.TipoUsuario | UserType }}</td> <!-- Aplicar el pipe -->
                   <td>
                       <button class="btn-action btn-gray" (click)="openEditModal(usuario)">Editar</button>
                       <button class="btn-action btn-red">Eliminar</button>
@@ -44,5 +45,7 @@
 <app-AddUserModal 
     *ngIf="isModalOpen"
     [isOpen]="isModalOpen"
-    (closeModal)="isModalOpen = false">
+    [isEditMode]="isEditMode"
+    (closeModal)="isModalOpen = false"
+    [user]="selectedUser">
 </app-AddUserModal>
