@@ -29,7 +29,7 @@
                   <td>{{ usuario.NombreUsuario }}</td>
                   <td>{{ usuario.ClaveUsuario }}</td>
                   <!-- <td>{{ usuario.TipoUsuario }}</td> -->
-                  <td>{{ usuario.TipoUsuario | UserType }}</td> <!-- Aplicar el pipe -->
+                  <td>{{ usuario.TipoUsuario! | UserType }}</td> <!-- Aplicar el pipe -->
                   <td>
                       <button class="btn-action btn-gray" (click)="openEditModal(usuario)">Editar</button>
                       <button class="btn-action btn-red">Eliminar</button>

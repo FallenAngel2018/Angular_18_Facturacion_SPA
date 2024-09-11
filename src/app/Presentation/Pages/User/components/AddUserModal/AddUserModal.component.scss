@@ -71,6 +71,90 @@
     display: block;
 }
 
+/* Select (opciones tipo de usuario) */
+/* Estilo general del select */
+select {
+    width: 100%;
+    /* Ajusta el ancho del select al 100% del contenedor */
+    padding: 10px;
+    /* Espaciado interno */
+    font-size: 16px;
+    /* Tamaño de fuente */
+    border: 1px solid #ccc;
+    /* Borde del select */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    background-color: white;
+    /* Color de fondo */
+    color: #333;
+    /* Color del texto */
+    appearance: none;
+    /* Oculta la flecha predeterminada en algunos navegadores */
+    -webkit-appearance: none;
+    /* Compatibilidad con Webkit (Safari) */
+    -moz-appearance: none;
+    /* Compatibilidad con Firefox */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el select */
+    outline: none;
+    /* Elimina el borde de enfoque predeterminado */
+}
+
+/* Para agregar un ícono de flecha personalizado */
+select::after {
+    content: '▼';
+    /* Carácter de flecha */
+    font-size: 10px;
+    color: #333;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Estilo al hacer hover sobre el select */
+select:hover {
+    border-color: #888;
+    /* Cambia el color del borde al hacer hover */
+}
+
+/* Estilo al hacer focus en el select */
+select:focus {
+    border-color: #007bff;
+    /* Cambia el color del borde al hacer focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    /* Sombra azul al enfocarse */
+}
+
+/* Estilo de las opciones */
+option {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    /* Fondo blanco para las opciones */
+    color: #333;
+    /* Color de texto */
+}
+
+/* Cambiar el color de fondo de las opciones al seleccionar */
+select option:checked {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilo cuando el select está deshabilitado */
+select:disabled {
+    background-color: #f5f5f5;
+    /* Fondo gris claro */
+    color: #aaa;
+    /* Texto gris claro */
+    border-color: #ddd;
+    cursor: not-allowed;
+    /* Cursor de no permitido */
+}
+
+
+/* Buttons */
 /* Button group */
 .button-group {
     display: flex;
@@ -79,7 +163,6 @@
     margin-top: 40px;
 }
 
-/* Buttons */
 .button-group button {
     padding: 10px 20px;
     border: none;
@@ -88,11 +171,16 @@
 }
 
 button:disabled {
-    background-color: #ccc; /* Color de fondo gris claro */
-    color: #666; /* Color de texto gris */
-    cursor: not-allowed; /* Cambia el cursor a no permitido */
-    opacity: 0.6; /* Hacer el botón semi-transparente */
-    border: 1px solid #999; /* Bordes tenues */
+    background-color: #ccc;
+    /* Color de fondo gris claro */
+    color: #666;
+    /* Color de texto gris */
+    cursor: not-allowed;
+    /* Cambia el cursor a no permitido */
+    opacity: 0.6;
+    /* Hacer el botón semi-transparente */
+    border: 1px solid #999;
+    /* Bordes tenues */
 }
 
 .button-group button:first-of-type {

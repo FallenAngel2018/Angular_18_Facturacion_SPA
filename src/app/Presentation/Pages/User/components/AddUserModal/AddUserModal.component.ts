@@ -4,13 +4,15 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModu
 import { UserApp } from '../../../../../Application/User/UserApp';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../../../../../Domain/User/UserModel';
+import { UserTypePipe } from '../../pipes/UserType.pipe';
+import { UserTypes } from '../../../../../Utils/UserTypes';
 
 @Component({
   selector: 'app-AddUserModal',
   standalone: true,
   templateUrl: './AddUserModal.component.html',
   styleUrls: ['./AddUserModal.component.scss'],
-  imports:[ ReactiveFormsModule, FormsModule, CommonModule ],
+  imports:[ ReactiveFormsModule, FormsModule, CommonModule, UserTypePipe ],
   providers: [ UserApp ],
 })
 export class AddUserModalComponent implements OnInit {
@@ -27,26 +29,32 @@ export class AddUserModalComponent implements OnInit {
   usernameFormControl: AbstractControl;
   passwordFormControl: AbstractControl;
   userTypeFormControl: AbstractControl;
+  userTypes = Object.values(UserTypes).filter(value => typeof value === 'number'); // Obtiene los valores numéricos del enum
+  selectedUserType: number = UserTypes.Admin; // Valor inicial
 
+  
   constructor(private http: HttpClient, private userApp: UserApp) {
     this.userForm = new FormGroup({
       Nombre: new FormControl("", [ Validators.required, Validators.minLength(4) ]),
       NombreUsuario: new FormControl("", [ Validators.required, Validators.minLength(5) ]),
-      ClaveUsuario: new FormControl("", [ Validators.required, Validators.minLength(7) ]),
-      TipoUsuario: new FormControl("", [ Validators.required ]),
+      ClaveUsuario: new FormControl("", [ Validators.required, Validators.minLength(5) ]),
+      TipoUsuario: new FormControl(this.selectedUserType, [ Validators.required ]),
     });
 
     this.nameFormControl = this.userForm.controls["Nombre"];
     this.usernameFormControl = this.userForm.controls["NombreUsuario"];
     this.passwordFormControl = this.userForm.controls["ClaveUsuario"];
     this.userTypeFormControl = this.userForm.controls["TipoUsuario"];
-
   }
   
   ngOnInit() {
     if(this.isEditMode) {
       this.userForm.patchValue({
-        Nombre: this.user.Nombre
+        IdUsuario: this.user.IdUsuario,
+        Nombre: this.user.Nombre,
+        NombreUsuario: this.user.NombreUsuario,
+        ClaveUsuario: this.user.ClaveUsuario,
+        TipoUsuario: this.user.TipoUsuario,
       });
     }
     if(!this.isEditMode) {
@@ -58,9 +66,11 @@ export class AddUserModalComponent implements OnInit {
   save() {
     if (this.userForm.valid) {
       // Obtener los datos del formulario
-      const user: UserModel = this.userForm.value;
+      const user = {
+        IdUsuario: this.user.IdUsuario, // Usa el id almacenado, si no existe va como undefined
+        ...this.userForm.value
+      };
       console.log('User Data:', user);
-      debugger;
 
       const header = new HttpHeaders(
         {
@@ -73,22 +83,18 @@ export class AddUserModalComponent implements OnInit {
       if(!this.isEditMode) {
         this.userApp.addUser(this.http, user, header)
         .then(response => {
-          console.log("typeof response:");
-          console.log(typeof response);
           console.log(response);
         })
-        .catch(error => console.error('Error de login:', error));
+        .catch(error => console.error('Error:', error));
       }
 
       // Si se está actualizando un usuario seleccionado por el usuario...
       if(this.isEditMode && user.IdUsuario! > 0) {
         this.userApp.updateUser(this.http, user, header)
         .then(response => {
-          console.log("typeof response:");
-          console.log(typeof response);
           console.log(response);
         })
-        .catch(error => console.error('Error de login:', error));
+        .catch(error => console.error('Error:', error));
       }
 
       // this.save.emit();

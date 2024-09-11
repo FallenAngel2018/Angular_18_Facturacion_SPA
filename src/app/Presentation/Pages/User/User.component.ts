@@ -23,7 +23,6 @@ export class UserComponent implements OnInit {
   isModalOpen = false;
   isEditMode: boolean = false;
   selectedUser: UserModel = new UserModel();
-  // selectedUser: UserModel | null = null;
 
   constructor(private http: HttpClient, private userApp: UserApp) { }
 
@@ -56,17 +55,9 @@ export class UserComponent implements OnInit {
     console.log("openEditModal(user: UserModel) ejecutado - Usuario:");
     console.log(user);
     
-    // Lógica para abrir el modal
-    // const modal = document.getElementById('clientModal');
-    // if (modal) {
-    //   modal.style.display = 'block';
-    // }
-
     this.selectedUser = user;
     this.isEditMode = true;
     this.isModalOpen = true;
-    console.log("this.selectedUser = user:");
-    console.log(this.selectedUser);
   }
 
 }
