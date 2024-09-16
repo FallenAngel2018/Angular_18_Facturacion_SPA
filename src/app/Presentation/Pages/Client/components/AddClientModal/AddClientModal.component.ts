@@ -18,6 +18,8 @@ export class AddClientModalComponent implements OnInit {
   // Campos modal
   @Input() isOpen: boolean = false;
   @Input() isEditMode: boolean = false;
+  // @Output() clientCreated = new EventEmitter();
+  @Output() clientCreated: EventEmitter<ClientModel> = new EventEmitter();
   @Output() closeModal: EventEmitter<void> = new EventEmitter();
 
   // Campos formulario
@@ -46,7 +48,7 @@ export class AddClientModalComponent implements OnInit {
     
   }
 
-  saveClient() {
+  async saveClient() {
     if (this.clientForm.valid) {
       // Obtener los datos del formulario
       const client: ClientModel = this.clientForm.value;
@@ -60,15 +62,21 @@ export class AddClientModalComponent implements OnInit {
       );
 
 
-      this.clientApp.addClient(this.http, client, header)
+      const response = await this.clientApp.addClient(this.http, client, header)
         .then(response => {
-          console.log("typeof response:");
-          console.log(typeof response);
-          console.log(response);
+          return response;
         })
         .catch(error => console.error('Error de login:', error));
-        
-      // this.save.emit();
+
+      const clientObj = new ClientModel(
+        response["Client"].IdCliente,
+        client.NumIdentificacion,
+        client.NombreCliente,
+        client.NumTelefono,
+        client.Correo
+      );
+
+      this.clientCreated.emit(clientObj);
       this.close();
     } else {
       console.log('Form is invalid');

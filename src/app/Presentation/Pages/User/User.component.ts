@@ -4,7 +4,7 @@ import { UserModel } from '../../../Domain/User/UserModel';
 import { UserApp } from '../../../Application/User/UserApp';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AddUserModalComponent } from './components/AddUserModal/AddUserModal.component';
-import { UserTypePipe } from './pipes/UserType.pipe';
+import { UserTypePipe } from './Pipes/UserType.pipe';
 
 
 @Component({
@@ -37,8 +37,7 @@ export class UserComponent implements OnInit {
 
     this.usuarios = await this.userApp.getUsers(this.http, data, headers)
       .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
+        console.log("userApp.getUsers() response:");
         console.log(response);
 
         return response;

@@ -42,5 +42,6 @@
 <app-AddClientModal 
     *ngIf="isModalOpen"
     [isOpen]="isModalOpen"
-    (closeModal)="isModalOpen = false">
+    (closeModal)="isModalOpen = false"
+    (clientCreated)="false">
 </app-AddClientModal>

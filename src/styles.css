@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import "~@ng-select/ng-select/themes/default.theme.css"; */
+@import "../node_modules/@ng-select/ng-select/themes/default.theme.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* .ng-select-default {
+    @import "../node_modules/@ng-select/ng-select/themes/default.theme";
+} */

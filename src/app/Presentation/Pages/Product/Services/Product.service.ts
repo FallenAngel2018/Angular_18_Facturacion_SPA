@@ -66,8 +66,6 @@ export class ProductService {
     );
     this.productApp.addProduct(this.http, product, header)
       .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
         console.log(response);
       })
       .catch(error => console.error('Error al ingresar producto (Angular):', error));

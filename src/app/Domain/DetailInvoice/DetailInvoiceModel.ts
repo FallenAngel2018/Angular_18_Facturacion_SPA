@@ -12,6 +12,7 @@ export class DetailInvoiceModel {
 
     // Forma simplificada
     constructor(public IdDetalleFactura?: number, public IdFactura?: number,
+        public IdProducto?: number,
         public Producto?: ProductModel,
         public Cantidad?: number, public PrecioUnitario?: number, public Total?: number) { }
     

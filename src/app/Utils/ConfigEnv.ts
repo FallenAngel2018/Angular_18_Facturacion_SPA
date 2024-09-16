@@ -4,5 +4,5 @@ export class ConfigEnv {
     static readonly PRODUCTION: string = 'https://localhost:5001';
 
     // Esta variable configura la url de consultas hacia la API
-    static readonly ENVIRONMENT: string = this.PRODUCTION;
+    static readonly ENVIRONMENT: string = this.DEVELOPMENT;
 }

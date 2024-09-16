@@ -4,6 +4,8 @@ import { InvoiceModel } from '../../../Domain/Invoice/InvoiceModel';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { InvoiceApp } from '../../../Application/Invoice/InvoiceApp';
 import { CommonModule } from '@angular/common';
+import { InvoiceService } from './Services/Invoice.service';
+import { STRING_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-Invoice',
@@ -18,8 +20,11 @@ export class InvoiceComponent implements OnInit {
   todayDate: string;
   facturas: InvoiceModel[] = [];
 
+  mostrarMensajeOpFactura: boolean = false;
+  mensajeOpFactura: string | null = null;
+
   
-  constructor(private http: HttpClient, private router: Router, private invoiceApp: InvoiceApp) {
+  constructor(private invoiceService: InvoiceService, private http: HttpClient, private router: Router, private invoiceApp: InvoiceApp) {
     this.todayDate = "";
     this.getCurrentDate();
   }
@@ -41,10 +46,6 @@ export class InvoiceComponent implements OnInit {
 
     this.facturas = await this.invoiceApp.getInvoices(this.http, data, headers)
       .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
-        console.log(response);
-
         return response;
       })
       .catch(error => console.error('Error:', error));
@@ -52,8 +53,39 @@ export class InvoiceComponent implements OnInit {
     console.log(this.facturas);
     // console.log(this.facturas[1]);
     
-    
+    this.existeMensajeOpFactura();
 
+
+  }
+
+  existeMensajeOpFactura() {
+    const navigation = this.router.getCurrentNavigation();
+    console.log("navigation:");
+    console.log(navigation);
+
+    const mostrarMensaje = this.invoiceService.getMostrarMensajeOpFactura();
+
+    if (mostrarMensaje) {
+      this.mensajeOpFactura = this.invoiceService.getMensajeOpFactura();
+      this.mostrarMensajeOpFactura = mostrarMensaje;
+      
+      // Ocultar el modal después de 3-4 segundos
+      setTimeout(() => {
+        this.closeModal();
+        this.clearOpFacturaValues();
+      }, 5000); // 5 segundos
+    }
+
+  }
+
+  closeModal(): void {
+    this.mostrarMensajeOpFactura = false;
+  }
+
+  clearOpFacturaValues() {
+    this.mostrarMensajeOpFactura = false;
+    this.mensajeOpFactura = "";
+    this.invoiceService.resetOpFacturaValues();
 
   }
 

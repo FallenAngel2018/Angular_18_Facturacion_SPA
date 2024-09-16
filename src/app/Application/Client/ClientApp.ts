@@ -2,7 +2,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ClientModel } from "../../Domain/Client/ClientModel";
 import { IClientRepository } from "../../Domain/Client/IClientRepository";
 import { ClientRepositoryImplementation } from "../../Infrastructure/Client/ClientRepository";
+import { Injectable } from "@angular/core";
 
+@Injectable({
+    providedIn: 'root',
+})
 export class ClientApp {
     private clientRepository: IClientRepository;
 

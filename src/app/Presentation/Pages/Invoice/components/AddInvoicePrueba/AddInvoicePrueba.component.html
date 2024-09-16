@@ -1,0 +1,161 @@
+<div class="invoice-container">
+  <!-- Header -->
+  <div class="invoice-header">
+    <h2>Nueva Factura</h2>
+    <button type="button" class="save-invoice-btn" (click)="handleSave()">Guardar Factura</button>
+  </div>
+
+  <!-- Body -->
+  <div class="invoice-body">
+    <!-- Primera fila (Formulario) -->
+    <form [formGroup]="invoiceForm" class="invoice-form">
+      <!-- Cliente -->
+      <div class="form-group">
+        <label for="cliente">Cliente:</label>
+        <ng-select
+          #ngSelectClients
+          appendTo="body"
+          [items]="clientes"
+          [searchable]="true"
+          bindValue="IdCliente"
+          bindLabel="NombreCliente"
+          placeholder="Seleccione un cliente..."
+          (change)="selectedClient($event)"
+          formControlName="IdCliente">
+        </ng-select>
+
+        <small *ngIf="(clientFormControl.invalid && clientFormControl.touched) || (clientFormControl.touched && !isClienteValido)"
+          class="text-error">
+        <!-- <small *ngIf="(clientFormControl.invalid || !isClienteValido) && clientFormControl.touched" class="text-error"> -->
+        <!-- <small *ngIf="((clientFormControl.invalid || !isClienteValido) && clientFormControl.touched) || (invoiceForm.touched && !isClienteValido)" class="text-error"> -->
+          Cliente es obligatorio.
+        </small>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-group">
+        <label for="NumTelefono">Teléfono</label>
+        <input type="text" id="NumTelefono" formControlName="NumTelefono" />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="Correo">Email</label>
+        <input type="text" id="Correo" formControlName="Correo" />
+      </div>
+
+      <!-- Vendedor -->
+      <div class="form-group">
+        <label for="IdUsuarioVendedor">Vendedor</label>
+        <!-- <input type="text" list="vendedores" id="IdUsuarioVendedor" formControlName="IdUsuarioVendedor"
+          (change)="selectedSeller($event)" (input)="selectedSeller($event)" />
+        <datalist id="vendedores">
+          <option *ngFor="let vendedor of vendedores" [value]="vendedor.Nombre"></option>
+        </datalist> -->
+        <ng-select
+          #ngSelectSellers
+          appendTo="body"
+          [items]="vendedores"
+          [searchable]="true"
+          bindValue="IdUsuario"
+          bindLabel="Nombre"
+          placeholder="Seleccione un vendedor..."
+          (change)="selectedSeller($event)"
+          formControlName="IdUsuarioVendedor">
+        </ng-select>
+        <small *ngIf="(sellerFormControl.invalid && sellerFormControl.touched) || (sellerFormControl.touched && !isVendedorValido)" class="text-error">
+        <!-- <small *ngIf="(sellerFormControl.invalid || !isVendedorValido) && sellerFormControl.touched" class="text-error"> -->
+          Vendedor es obligatorio.
+        </small>
+      </div>
+
+      <!-- Fecha -->
+      <div class="form-group">
+        <label for="FacturaFecha">Fecha</label>
+        <input type="text" id="FacturaFecha" formControlName="FacturaFecha" />
+      </div>
+
+      <!-- Forma de pago -->
+      <div class="form-group">
+        <label for="FacturaFormaPago">Forma de pago</label>
+        <select id="FacturaFormaPago" formControlName="FacturaFormaPago">
+          <option [value]="1">Tarjeta de crédito</option>
+          <option [value]="2">Efectivo</option>
+          <option [value]="3">Transferencia bancaria</option>
+        </select>
+        <small *ngIf="paymentMethodFormControl.invalid && paymentMethodFormControl.touched" class="text-error">
+          Forma de pago es obligatorio.
+        </small>
+      </div>
+    </form>
+
+    <!-- Segunda fila (Botón Agregar Productos) -->
+    <div class="add-products">
+      <!-- <small *ngIf="(detalles.length == 0 && invoiceForm.invalid && invoiceForm.touched)" class="text-error"> -->
+      <div>
+        <small *ngIf="wasFormSubmitted && detalles.length == 0" class="text-error">
+        <!-- <small *ngIf="(invoiceForm.invalid && invoiceForm.touched) || (invoiceForm.touched && detalles.length == 0)" class="text-error"> -->
+          Al menos 1 producto debe ser ingresado antes de guardar la factura.
+        </small>
+      </div>
+      <div>
+        <button class="add-product-btn" (click)="openModal()">Agregar productos</button>
+        <button class="add-client-btn" style="margin-left: 20px;" (click)="openClientModal()">Agregar cliente</button>
+      </div>
+      <!-- <div>
+      </div> -->
+      
+    </div>
+
+    <!-- Tercera fila (Tabla de productos) -->
+    <div class="product-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre del producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unit.</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí irían las filas de productos -->
+          <tr class="trow-data" *ngFor="let detalle of detalles; let i = index">
+            <td>{{ detalles[i].IdDetalleFactura! + 1 }}</td>
+            <td>{{ detalles[i].Producto?.NombreProducto}}</td>
+            <!-- <td>{{ detalles[i].Producto?.IdProducto}}</td> -->
+            <td>{{ detalles[i].Cantidad}}</td>
+            <td>{{ detalles[i].PrecioUnitario | currency }}</td>
+            <td>{{ detalles[i].Total | currency }}</td>
+            <td>
+                <button class="btn-action btn-red" (click)="substractProductToInvoice(detalle)">Eliminar</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style="text-align: right;">Total:</td>
+            <td style="font-weight: bold;">{{ totalInvoice | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Component -->
+<app-AddInvoiceDetailModal
+    *ngIf="isModalOpen"
+    [isOpen]="isModalOpen"
+    (detailCreated)="addProductToInvoice($event)"
+    (closeModal)="isModalOpen = false">
+</app-AddInvoiceDetailModal>
+
+<!-- Modal Component -->
+<app-AddClientModal 
+    *ngIf="isClientModalOpen"
+    [isOpen]="isClientModalOpen"
+    (clientCreated)="clientCreated($event)"
+    (closeModal)="isClientModalOpen = false">
+</app-AddClientModal>

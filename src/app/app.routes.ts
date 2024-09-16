@@ -7,6 +7,7 @@ import { InvoiceComponent } from './Presentation/Pages/Invoice/Invoice.component
 import { UserComponent } from './Presentation/Pages/User/User.component';
 import { Component } from '@angular/core';
 import { AddInvoiceComponent } from './Presentation/Pages/Invoice/components/AddInvoice/AddInvoice.component';
+import { AddInvoicePruebaComponent } from './Presentation/Pages/Invoice/components/AddInvoicePrueba/AddInvoicePrueba.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -16,7 +17,8 @@ export const routes: Routes = [
         component: HomeComponent,
         children: [
             { path: 'invoice', component: InvoiceComponent },
-            { path: 'add_invoice', component: AddInvoiceComponent },
+            // { path: 'add_invoice', component: AddInvoiceComponent },
+            { path: 'add_invoice', component: AddInvoicePruebaComponent },
             { path: 'client', component: ClientComponent },
             { path: 'product', component: ProductComponent },
             { path: 'user', component: UserComponent }

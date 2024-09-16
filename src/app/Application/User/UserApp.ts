@@ -3,7 +3,12 @@ import { IUserRepository } from "../../Domain/User/IUserRepository";
 import { UserRepositoryImplementation } from "../../Infrastructure/User/UserRepository";
 import { UserModel } from "../../Domain/User/UserModel";
 import { LoginResponseModel } from "../../Domain/Login/LoginResponseModel";
+import { Injectable } from "@angular/core";
 
+
+@Injectable({
+    providedIn: 'root', // O puedes hacerlo en un módulo específico
+})
 export class UserApp {
     private userRepository: IUserRepository;
 

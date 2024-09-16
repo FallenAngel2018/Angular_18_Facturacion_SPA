@@ -68,14 +68,19 @@ export class AddInvoiceDetailModalComponent implements OnInit {
 
     this.productApp.getProducts(this.http, data, headers)
       .then(productsResponse => {
-        console.log("typeof response:");
-        console.log(typeof productsResponse);
+        console.log("productsResponse:");
         console.log(productsResponse);
 
         for (let i = 0; i < productsResponse.length; i++) {
           const product = productsResponse[i];
 
-          this.detalles.push( new DetailInvoiceModel(i, 1, product, 1, 0.0) );
+          console.log("productApp.getProducts() product:");
+          console.log(product);
+          console.log(product.IdProducto);
+
+
+          // TODO REVISAR COMO EL PRODUCTO SE AGREGA AL DETALLE
+          this.detalles.push( new DetailInvoiceModel(i+1, 0, product.IdProducto, product, 1, 0.0) );
         }
 
 
@@ -93,7 +98,9 @@ export class AddInvoiceDetailModalComponent implements OnInit {
       const total = (detalle.Cantidad! * detalle.Producto!.PrecioProducto!);
 
       const detail: DetailInvoiceModel = {
-        IdDetalleFactura: detalle.IdDetalleFactura,
+        // IdDetalleFactura: detalle.IdDetalleFactura,
+        IdFactura: 0,
+        IdProducto: detalle.IdProducto,
         Producto: detalle.Producto,
         Cantidad: detalle.Cantidad,
         PrecioUnitario: detalle.Producto?.PrecioProducto,
@@ -102,7 +109,6 @@ export class AddInvoiceDetailModalComponent implements OnInit {
 
       this.detailCreated.emit(detail);
     }
-    
   }
 
 
@@ -113,8 +119,4 @@ export class AddInvoiceDetailModalComponent implements OnInit {
   
 
 
-}
-
-type ExtractFormControl<T> = {
-  [K in keyof T]: T[K] extends FormControl<infer U> ? U : T[K]
 }

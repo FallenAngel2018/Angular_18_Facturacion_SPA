@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IInvoiceRepository } from "../../Domain/Invoice/IInvoiceRepository";
 import { InvoiceModel } from "../../Domain/Invoice/InvoiceModel";
 import { ConfigEnv } from "../../Utils/ConfigEnv";
+import { InvoiceResponseModel } from "../../Domain/Invoice/InvoiceResponseModel";
 
 
 export class InvoiceRepositoryImplementation implements IInvoiceRepository {
@@ -34,7 +35,7 @@ export class InvoiceRepositoryImplementation implements IInvoiceRepository {
     });
   }
 
-  async AddInvoice(http: HttpClient, data: InvoiceModel, header: HttpHeaders): Promise<InvoiceModel | any> {
+  async AddInvoice(http: HttpClient, data: InvoiceModel, header: HttpHeaders): Promise<InvoiceResponseModel | any> {
     const entityAction: string = "/add_invoice";
 
     return new Promise((resolve, reject) => {

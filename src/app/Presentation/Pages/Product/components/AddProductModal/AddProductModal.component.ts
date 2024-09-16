@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormsModule, FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
 import { ProductApp } from '../../../../../Application/Product/ProductApp';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -70,17 +70,6 @@ export class AddProductModalComponent implements OnInit {
           // 'responseType':'json'
         },
       );
-
-
-
-      // this.productApp.addProduct(this.http, product, header)
-      //   .then(response => {
-      //     console.log("typeof response:");
-      //     console.log(typeof response);
-      //     console.log(response);
-      //   })
-      //   .catch(error => console.error('Error al ingresar producto (Angular):', error));
-      
       
       this.save.emit();
       this.close();

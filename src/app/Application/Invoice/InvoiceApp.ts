@@ -2,7 +2,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { InvoiceModel } from "../../Domain/Invoice/InvoiceModel";
 import { IInvoiceRepository } from "../../Domain/Invoice/IInvoiceRepository";
 import { InvoiceRepositoryImplementation } from "../../Infrastructure/Invoice/InvoiceRepository";
+import { Injectable } from "@angular/core";
+import { InvoiceResponseModel } from "../../Domain/Invoice/InvoiceResponseModel";
 
+@Injectable({
+    providedIn: 'root',
+})
 export class InvoiceApp {
     private invoiceRepository: IInvoiceRepository;
 
@@ -18,7 +23,7 @@ export class InvoiceApp {
         return this.invoiceRepository.GetInvoices(http, data, headers);
     }
 
-    addInvoice = (http: HttpClient, data: InvoiceModel, headers: HttpHeaders): Promise<InvoiceModel | any> => {
+    addInvoice = (http: HttpClient, data: InvoiceModel, headers: HttpHeaders): Promise<InvoiceResponseModel | any> => {
         return this.invoiceRepository.AddInvoice(http, data, headers);
     }
 

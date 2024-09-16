@@ -39,10 +39,6 @@ export class ClientComponent implements OnInit {
 
     this.clientes = await this.clientApp.getClients(this.http, data, headers)
       .then(response => {
-        console.log("typeof response:");
-        console.log(typeof response);
-        console.log(response);
-
         return response;
       })
       .catch(error => console.error('Error:', error));

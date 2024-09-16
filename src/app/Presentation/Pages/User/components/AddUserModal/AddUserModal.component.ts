@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModu
 import { UserApp } from '../../../../../Application/User/UserApp';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserModel } from '../../../../../Domain/User/UserModel';
-import { UserTypePipe } from '../../pipes/UserType.pipe';
+import { UserTypePipe } from '../../Pipes/UserType.pipe';
 import { UserTypes } from '../../../../../Utils/UserTypes';
 
 @Component({

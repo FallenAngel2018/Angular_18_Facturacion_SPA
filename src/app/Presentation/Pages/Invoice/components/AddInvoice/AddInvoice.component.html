@@ -1,58 +1,58 @@
 <div class="invoice-container">
   <!-- Header -->
-  <div class="header">
-    <h2>Nueva factura</h2>
-    <div class="button-row">
-      <button class="add-invoice-button" (click)="handleSave()">Guardar factura</button>
+    <div class="header">
+      <h2>Nueva factura</h2>
+      <div class="button-row">
+        <button class="add-invoice-button" type="submit" (click)="handleSave()">Guardar factura</button>
+        <!-- <button class="add-invoice-button" type="submit" [disabled]="invoiceForm.invalid" (click)="handleSave()">Guardar factura</button> -->
+      </div>
     </div>
-  </div>
 
   <!-- Body -->
   <div class="body">
-    <!-- Primera fila -->
-    <div class="form-row">
-      <!-- <label for="cliente">Cliente</label>
-      <input type="text" id="cliente" name="cliente" [(ngModel)]="inputValue" (input)="onInput($event)">
+    <form [formGroup]="invoiceForm">
+      <!-- Primera fila -->
+      <div class="form-row">
 
-      <div id="autocomplete-results" class="autocomplete-results">
-        <div *ngFor="let option of filteredOptions" (click)="selectOption(option)">
-          {{ option }}
-        </div>
-      </div> -->
+        <label for="cliente">Cliente:</label>
+        <input type="text" list="clientes" id="cliente" required (change)="selectedClient($event)" (input)="selectedClient($event)" />
+        <datalist id="clientes">
+          <option *ngFor="let cliente of clientes" [value]="cliente.NombreCliente"></option>
+        </datalist>
 
-      <label for="cliente">Cliente:</label>
-      <input type="text" list="clientes" id="cliente" (change)="selectedClient($event)" (input)="selectedClient($event)" />
-      
-      <datalist id="clientes">
-        <option *ngFor="let cliente of clientes" [value]="cliente.NombreCliente"></option>
-      </datalist>
+        <label for="telefono">Teléfono</label>
+        <input type="text" id="telefono" name="telefono" [(ngModel)]="phoneNumberInput" disabled>
 
-      <p *ngIf="!isClienteValido && clienteSeleccionado">El cliente seleccionado no es válido.</p>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" [(ngModel)]="mailInput" disabled>
 
-      <label for="telefono">Teléfono</label>
-      <input type="text" id="telefono" name="telefono" [(ngModel)]="phoneNumberInput" disabled>
+        <label for="vendedor">Vendedor</label>
+        <input type="text" list="vendedores" id="vendedor" (change)="selectedSeller($event)" (input)="selectedSeller($event)" />
+        <datalist id="vendedores">
+          <option *ngFor="let vendedor of vendedores" [value]="vendedor.Nombre"></option>
+        </datalist>
 
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" [(ngModel)]="mailInput" disabled>
+        <label for="fecha">Fecha</label>
+        <!-- <input type="date" id="fecha" name="fecha" value="{{ todayDate | date:'fullDate' }}" disabled /> -->
+        <input type="datetime-local" id="fecha" name="fecha" value="{{ currentDate }}" disabled />
+        <!-- <input type="datetime-local" id="fecha" name="fecha" value="{{ currentDate | date:'fullDate' }}" disabled /> -->
+        
 
-      <label for="vendedor">Vendedor</label>
-      <input type="text" id="vendedor" name="vendedor">
-
-      <label for="fecha">Fecha</label>
-      <input type="date" id="fecha" name="fecha" value="{{ todayDate }}" disabled>
-
-      <label for="forma-pago">Forma de pago</label>
-      <select id="forma-pago" name="forma-pago">
-        <option value="efectivo">Efectivo</option>
-        <option value="debito">Débito</option>
-        <option value="credito">Crédito</option>
-      </select>
-    </div>
+        <label for="forma-pago">Forma de pago</label>
+        <select id="forma-pago" name="forma-pago" (change)="selectedMethodPayment($event)">
+          <option value="efectivo">Efectivo</option>
+          <option value="debito">Débito</option>
+          <option value="credito">Crédito</option>
+        </select>
+      </div>
+    </form>
 
     <!-- Segunda fila -->
     <div class="button-row">
       <button class="add-product-button" (click)="openModal()">Agregar productos</button>
     </div>
+
+
 
     <!-- Tercera fila -->
     <div class="table-container">

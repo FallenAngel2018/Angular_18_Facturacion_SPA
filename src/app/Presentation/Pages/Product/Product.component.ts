@@ -4,7 +4,6 @@ import { ProductModel } from '../../../Domain/Product/ProductModel';
 import { ProductApp } from '../../../Application/Product/ProductApp';
 import { AddProductModalComponent } from './components/AddProductModal/AddProductModal.component';
 import { CommonModule } from '@angular/common';
-import { FormGroup } from '@angular/forms';
 import { ProductService } from './Services/Product.service';
 
 @Component({
@@ -30,24 +29,6 @@ export class ProductComponent implements OnInit {
     this.productService.products$.subscribe(products => {
       this.productos = products;
     });
-
-    // const data : ProductModel = { };
-    // const headers = new HttpHeaders(
-    //   {
-    //     'Accept': '*/*', // */*  text/plain
-    //     'Content-Type': 'application/json',
-    //   },
-    // );
-
-    // this.productos = await this.productApp.getProducts(this.http, data, headers)
-    //   .then(response => {
-    //     console.log("typeof response:");
-    //     console.log(typeof response);
-    //     console.log(response);
-
-    //     return response;
-    //   })
-    //   .catch(error => console.error('Error:', error));
 
   }
 
