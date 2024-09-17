@@ -256,8 +256,6 @@ export class AddInvoicePruebaComponent implements OnInit {
     // Se marca como tocados a todos los controles para mostrar sus respectivos mensajes de validación
     this.invoiceForm.markAllAsTouched();
     this.wasFormSubmitted = true;
-    this.invoiceService.setMostrarMensajeOpFactura(true);
-    this.invoiceService.setMensajeOpFactura(response["Message"]);
     const invoiceConst = {
       IdFactura: 0,
       FacturaTotal: this.totalInvoice,
@@ -269,19 +267,12 @@ export class AddInvoicePruebaComponent implements OnInit {
     console.log(invoiceConst);
 
     if (this.invoiceForm.valid && this.detalles.length > 0) {
-      // console.log('Formulario enviado', this.invoiceForm.value);
-      console.log('Formulario enviado', invoiceConst);
+      console.log('Formulario enviado:', invoiceConst);
       const response = await this.invoiceService.saveInvoice(invoiceConst);
 
       console.log(response);
 
       if(response["ResponseCode"] == "000") {
-        console.log("Response message:", response["Message"]);
-        // this.router.navigate(['/home/invoice']);
-        // Si todo sale bien, navegas y mandas un mensaje de éxito
-        // this.router.navigate(['/home/invoice'], {
-        //   state: { mostrarMensajeOpFactura: true, mensajeOpFactura: response["Message"] }
-        // });
         this.invoiceService.setMostrarMensajeOpFactura(true);
         this.invoiceService.setMensajeOpFactura(response["Message"]);
         this.router.navigate(['/home/invoice'], {

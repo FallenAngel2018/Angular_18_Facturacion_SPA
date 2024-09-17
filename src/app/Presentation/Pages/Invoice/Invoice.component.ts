@@ -52,7 +52,10 @@ export class InvoiceComponent implements OnInit {
 
     console.log(this.facturas);
     // console.log(this.facturas[1]);
-    
+
+    this.invoiceService.setMostrarMensajeOpFactura(true);
+    this.invoiceService.setMensajeOpFactura("response[Message]");
+  
     this.existeMensajeOpFactura();
 
 
